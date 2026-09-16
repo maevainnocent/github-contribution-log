@@ -1,8 +1,8 @@
-# Contribution [#]: [Issue Title]
+# Contribution [#511]: [UI : add a svg icon for the crash cymbal]
 
 **Contribution Number:** [1 / 2 / 3]  
-**Student:** [Your Name]  
-**Issue:** [GitHub issue link]  
+**Student:** [Maeva Innocent]  
+**Issue:** [https://github.com/Babali42/DrumBeatRepo/issues/511]  
 **Status:** [Phase I / Phase II / Phase III / Phase IV] [In Progress / Complete]
 
 ---
@@ -11,7 +11,8 @@
 
 [1-2 paragraphs explaining why this issue interests you, how it matches your skills/learning goals, what you hope to learn]
 
----
+--- This issue interests me because as soon as I read the problem, I could already picture how I'd approach fixing it not with code but with words. which tells me I understand the problem well enough to get started. I've been wanting to work more on the design/UI side of projects, and this issue (mapping a missing icon to the crash cymbal) fits that curiosity nicely since it involves both asset work and understanding how the drum-image pipe connects data to visuals.
+Through this issue, I hope to learn how icon-to-data mapping is handled in the drum-image.pipe.ts logic, how tests are structured to validate that mapping, and the general contribution workflow for this repo from finding the right asset, to writing a test, to submitting a clean PR.
 
 ## Understanding the Issue
 
