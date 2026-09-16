@@ -3,7 +3,7 @@
 **Contribution Number:** [1 / 2 / 3]  
 **Student:** [Maeva Innocent]  
 **Issue:** [https://github.com/Babali42/DrumBeatRepo/issues/511]  
-**Status:** [Phase I / Phase II / Phase III / Phase IV] [In Progress / Complete]
+**Status:** [Phase I complete / Phase II / Phase III / Phase IV] [In Progress / Complete]
 
 ---
 
