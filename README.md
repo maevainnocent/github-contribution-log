@@ -3,7 +3,7 @@
 **Contribution Number:** [1 / 2 / 3]  
 **Student:** [Maeva Innocent]  
 **Issue:** [https://github.com/Babali42/DrumBeatRepo/issues/511]  
-**Status:** [Phase I complete / Phase II / Phase III / Phase IV] [In Progress / Complete]
+**Status:** [Phase I complete / Phase II complete / Phase III / Phase IV] [In Progress / Complete]
 
 ---
 
@@ -53,19 +53,41 @@ Once sbt was properly installed, the rest of the setup worked as documented:
 
 ### Steps to Reproduce
 
-1. [Step 1]
-2. [Step 2]
-3. [Observed result]
+Issue #538 is a feature request, not a bug, so "reproducing" means confirming the gap the issue describes:
+-Run the app locally (or visit www.drumbeatrepo.com)
+-Open the genre/pattern selector
+-Observe available genres:  Rock, Samba, Funk, etc.
+-Confirmed Bossa Nova is not present as a selectable genre
+-Expected per issue #538: Bossa Nova should be a selectable genre with an authentic pattern (reference: https://shedrums.de/bossa-nova-drum-beat/)
+-Confirmed consistent by checking both the live site and the local build. I also looked for a file in my code for Bossa Nova
 
 ### Reproduction Evidence
 
-- **Commit showing reproduction:** [Link to commit in your fork]
-- **Screenshots/logs:** [If applicable]
-- **My findings:** [What you discovered during reproduction]
+- **Commit showing reproduction:** https://github.com/maevainnocent/DrumBeatRepo/commit/a8a6e1d98570a5b133c9aa5e017a9c406b45b222
+- **Screenshots/logs:** maevainnocent@Maevas-MacBook-Air DrumBeatRepo % git log -1 > commit-log.txt
+maevainnocent@Maevas-MacBook-Air DrumBeatRepo % cat commit-log.txt
+commit a8a6e1d98570a5b133c9aa5e017a9c406b45b222
+Author: maevalabelle <maevainnocent8@gmail.com>
+Date:   Thu Sep 24 17:11:32 2026 -0400
+
+    docs: document reproduction of missing Bossa Nova genre (#538)
+- **My findings:** I learned how to commit through the terminal and also log.
 
 ---
 
 ## Solution Approach
+Implementation Plan (UMPIRE)
+  -Understand: The app offers a fixed set of drum genres/patterns to select and play. Bossa Nova is missing. The issue asks for it to be added as a new genre with an authentic       pattern.
+Match: Samba. drum and base or dancehall would fit 
+Plan:
+  -Add a BossaNova case to the genre enum/sealed trait
+  -Define its kick/snare/hi-hat pattern data from the reference groove
+  -Register it in the beat manifest/library
+  -Verify the Angular frontend picks it up via the shared genre list with no extra wiring
+  -Add a label/translation string if genre names are localized
+Implement: (placeholder — Phase III)
+Review: Check CONTRIBUTING.md for Scala style and commit conventions before opening the PR.
+Evaluate: Add a Scala test asserting the new pattern's step count/hit positions; run sbt testFull; manually confirm Bossa Nova appears and plays in the running app.
 
 ### Analysis
 
