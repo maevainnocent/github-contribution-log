@@ -38,7 +38,18 @@ Through this issue, I hope to learn how icon-to-data mapping is handled in the d
 
 ### Environment Setup
 
-[Notes on setting up your local development environment - challenges you faced, how you solved them]
+[Setting up locally on macOS, I hit a few errors along the way:
+
+| Error | Cause | Fix |
+|---|---|---|
+| `bash: cd: engine/: No such file or directory` | Ran `cd engine/` from inside `frontend/` — `engine` and `frontend` are sibling folders, not nested | `cd ..` first, then `cd engine/` |
+| `bash: sbt: command not found` | sbt wasn't installed on my machine yet | Installed via Homebrew: `brew install sbt` |
+| `brew install sbt` failed building `openjdk` from source with `configure: error: XCode tool 'metal' neither found in path nor with xcrun` | Homebrew tried to build a new JDK (`openjdk 27`) from source as a dependency, which needs a full Xcode install. My macOS (14) is also unsupported by Homebrew for prebuilt bottles ("Tier 3"), forcing a source build | Already had Java 20 installed separately, so skipped the dependency: `brew install sbt --ignore-dependencies` |
+
+Once sbt was properly installed, the rest of the setup worked as documented:
+1. `cd engine/` → `sbt fastLinkJS`
+2. `cd ../frontend/` → `npm run start`
+3. Verified app running at `http://localhost:4200`]
 
 ### Steps to Reproduce
 
