@@ -122,26 +122,29 @@ Using UMPIRE framework (adapted):
 
 ### Unit Tests
 
-- [ ] Test case 1: [Description]
-- [ ] Test case 2: [Description]
+- [x ] Test case 1: Circe decoding test: valid Bossa Nova metadata JSON decodes into the correct BeatMetadata case class
+- [x ] Test case 2: Ran full existing suite (`sbt testFull`) to confirm no regressions — 27/27 tests passed
 - [ ] Test case 3: [Description]
 
 ### Integration Tests
 
-- [ ] Integration scenario 1
+- [ ] no integration test layer exists for this change; covered by the manual test below
 - [ ] Integration scenario 2
 
 ### Manual Testing
 
-[What you tested manually and results]
-
+Ran `sbt fastLinkJS` to rebuild the engine, then `npm run start` in the frontend. Verified in the browser at localhost:4200 that Bossa Nova appears in the genre selector and plays the expected pattern correctly.
 ---
 
 ## Implementation Notes
 
-### Week [X] Progress
+### Week 29 Progress
 
-[What you built this week, challenges faced, decisions made]
+Implemented the Bossa Nova genre end-to-end. Since this app is fully data-driven for genres (no hardcoded enum or type list), the fix came down to three pieces:
+Added frontend/src/assets/beats/bossa-nova/bossa-nova.json, a new pattern using a syncopated kick (tresillo-style), steady eighth-note ride, and rim click — the core rhythmic signature of bossa nova — reusing existing audio samples from techno/.
+Registered the new pattern in frontend/src/assets/beats/beats-metadata.json.
+Added a Scala test in BeatMetadataCirceSpec.scala verifying the new metadata decodes correctly via Circe.
+Before writing any code, I checked frontend/src/types/engine.d.ts, frontend/src/app/domain/beat.ts, and the i18n files (en.json) to see whether genre names needed to be added anywhere else (a TypeScript union type or a translation map). They didn't — genre is typed as a plain string everywhere, and genre names aren't localized. This confirmed the app's genre system is fully data-driven, which simplified my original UMPIRE plan (I had assumed I'd need to add a case to a Scala enum, which doesn't exist).
 
 ### Week [Y] Progress
 
@@ -149,17 +152,33 @@ Using UMPIRE framework (adapted):
 
 ### Code Changes
 
-- **Files modified:** [List]
-- **Key commits:** [Links to important commits]
-- **Approach decisions:** [Why you chose certain approaches]
+- **Files modified:** Files modified: frontend/src/assets/beats/bossa-nova/bossa-nova.json (new), frontend/src/assets/beats/beats-metadata.json, engine/src/test/scala/com/drumbeatrepo/library/BeatMetadataCirceSpec.scala
+- **Key commits:** - b163f20 feat: add Bossa Nova beat pattern (#538)
+  - 1caf584 feat: register Bossa Nova in beats metadata (#538)
+  - eaa9b0a test: add decoding test for Bossa Nova metadata (#538)
+- **Approach decisions:** Reused existing techno/ audio samples rather than adding new ones, to keep the change minimal and unblock the genre being playable immediately. Modeled the pattern's data shape directly on dancehall/standard.json for consistency with existing conventions.
 
 ---
 
 ## Pull Request
 
-**PR Link:** [GitHub PR URL when submitted]
+**PR Link:** https://github.com/Babali42/DrumBeatRepo/pull/589
 
-**PR Description:** [Draft or final PR description - much of the content above can be adapted]
+**PR Description:** Title: Add Bossa Nova genre
+Description:
+Closes #538
+What this does
+Adds Bossa Nova as a selectable genre with an authentic drum pattern, per the request in #538 (and the related genre backlog in #270).
+Changes
+Added frontend/src/assets/beats/bossa-nova/bossa-nova.json — a new pattern featuring a syncopated kick (tresillo-style), steady eighth-note ride, and rim click, which together form the core rhythmic signature of bossa nova
+Registered the new pattern in beats-metadata.json
+Added a unit test verifying the new metadata decodes correctly via Circe
+Why this approach
+Genres in this app are fully data-driven — there's no hardcoded enum, type, or i18n mapping to extend. I verified this by checking engine.d.ts, beat.ts, and the i18n files before writing any code, since genre is typed as a plain string throughout and genre names aren't localized. So the fix is scoped to just the pattern data, the manifest entry, and a test — no changes to application logic.
+I reused existing audio samples from techno/ (kick, snare, hat) rather than adding new ones, to keep this PR minimal and get the genre playable immediately. Happy to swap in dedicated bossa nova samples if the project has a preference or existing asset pipeline for that.
+Testing
+sbt testFull — all 27 tests pass, including the new Bossa Nova decoding test
+Manually verified in the running app (npm run start): Bossa Nova appears in the genre selector and plays correctly
 
 **Maintainer Feedback:**
 - [Date]: [Summary of feedback received]
